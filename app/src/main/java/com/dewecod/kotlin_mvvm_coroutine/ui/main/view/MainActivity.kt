@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dewecod.kotlin_mvvm_coroutine.R
-import com.dewecod.kotlin_mvvm_coroutine.data.api.ApiHelper
 import com.dewecod.kotlin_mvvm_coroutine.data.api.RetrofitBuilder
 import com.dewecod.kotlin_mvvm_coroutine.data.model.User
 import com.dewecod.kotlin_mvvm_coroutine.ui.main.adapter.MainAdapter
@@ -33,21 +32,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(
-                this,
-                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(RetrofitBuilder.apiService)).get(MainViewModel::class.java)
     }
 
     private fun setupUI() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
-        recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                        recyclerView.context,
-                        (recyclerView.layoutManager as LinearLayoutManager).orientation
-                )
-        )
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, (recyclerView.layoutManager as LinearLayoutManager).orientation))
         recyclerView.adapter = adapter
     }
 
